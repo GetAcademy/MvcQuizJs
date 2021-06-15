@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        // model
+        let questionIndex = 0;
+        let question = 'Hva er hovedstaden i Island?';
+        let answer1 = 'Københagen';
+        let answer2 = 'Reykjavik';
+        let answer3 = 'Burkina Faso';
+        let correctAnswer = 'Reykjavik';
+        let theAnswer = null;
+
+        // view
+        updateView();
+
+        function updateView() {
+            let feedbackHtml = '';
+            if (theAnswer != null) {
+                if (theAnswer == correctAnswer) {
+                    feedbackHtml = 'Du har svart riktig! <button onclick="nextQuestion()">Neste spørsmål</button>';
+                } else {
+                    feedbackHtml = `${theAnswer} er feil svar.`;
+                }
+
+                //feedbackHtml = `Du har svart "${theAnswer}".`;
+            }
+
+            document.getElementById('app').innerHTML = `
+
+                <h3>Quiz</h3>
+                <b>${question}</b><br/>
+                <button onclick="answer(this.innerHTML)">${answer1}</button><br/>
+                <button onclick="answer(this.innerHTML)">${answer2}</button><br/>
+                <button onclick="answer(this.innerHTML)">${answer3}</button><br/>
+                ${feedbackHtml}    
+
+            `;
+        }
+
+        // controller
+        function answer(anAnswer) {
+            theAnswer = anAnswer;
+            updateView();
+        }
+
+        function nextQuestion() {
+            questionIndex++;
+            if (questionIndex == 1) {
+                question = 'Hva er hovedstaden i Russland?';
+                answer1 = 'Moskva';
+                answer2 = 'Aaa';
+                answer3 = 'Bbb';
+                correctAnswer = 'Moskva';
+                theAnswer = null;
+            }
+            updateView();
+        }
+    </script>
+</body>
+
+</html>
